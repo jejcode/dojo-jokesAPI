@@ -1,6 +1,6 @@
 const Joke = require('../models/joke.model')
 
-module.exports.findAllJokes = (req,res) => {
+const findAllJokes = (req,res) => {
     Joke.find()
         .then((allJokes) => {
             res.json({ jokes: allJokes })
@@ -10,7 +10,7 @@ module.exports.findAllJokes = (req,res) => {
         })
 }
 
-module.exports.findOneJoke = (req,res) => {
+const findOneJoke = (req,res) => {
     Joke.findOne({_id: req.params.id })
         .then(oneJoke => {
             res.json({ joke: oneJoke})
@@ -20,7 +20,7 @@ module.exports.findOneJoke = (req,res) => {
         })
 }
 // Ninja Bonus: return a random joke
-module.exports.findRandomJoke = (req, res) => {
+const findRandomJoke = (req, res) => {
     Joke.find()
         .then((allJokes) => {
             const index = Math.floor(Math.random() * allJokes.length)
@@ -31,7 +31,7 @@ module.exports.findRandomJoke = (req, res) => {
         })
 }
 
-module.exports.createNewJoke = (req,res) => {
+const createNewJoke = (req,res) => {
     Joke.create(req.body)
         .then(newJoke => {
             res.json({ joke: newJoke})
@@ -41,7 +41,7 @@ module.exports.createNewJoke = (req,res) => {
         })
 }
 
-module.exports.updateExistingJoke = (req, res) => {
+const updateExistingJoke = (req, res) => {
     Joke.findOneAndUpdate(
         {_id: req.params.id},
         req.body,
@@ -55,7 +55,7 @@ module.exports.updateExistingJoke = (req, res) => {
         })
 }
 
-module.exports.deleteJoke = (req, res) => {
+const deleteJoke = (req, res) => {
     Joke.deleteOne({ _id: req.params.id})
         .then(result => {
             res.json({ result: result})
@@ -63,4 +63,13 @@ module.exports.deleteJoke = (req, res) => {
         .catch((err) => {
             res.json({ message: 'Something went wrong.', error: err})
         })
+}
+
+module.exports = {
+    findAllJokes,
+    findOneJoke,
+    findRandomJoke,
+    createNewJoke,
+    updateExistingJoke,
+    deleteJoke
 }
