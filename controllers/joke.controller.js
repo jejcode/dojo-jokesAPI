@@ -19,6 +19,18 @@ module.exports.findOneJoke = (req,res) => {
             res.json({message: 'Something went wrong.', error: err})
         })
 }
+// Ninja Bonus: return a random joke
+module.exports.findRandomJoke = (req, res) => {
+    Joke.find()
+        .then((allJokes) => {
+            const index = Math.floor(Math.random() * allJokes.length)
+            console.log(index)
+            res.json({ joke: allJokes[index]})
+        })
+        .catch((err) => {
+            res.json({message: 'Something went wrong.', error: err})
+        })
+}
 
 module.exports.createNewJoke = (req,res) => {
     Joke.create(req.body)
