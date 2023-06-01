@@ -24,7 +24,6 @@ module.exports.findRandomJoke = (req, res) => {
     Joke.find()
         .then((allJokes) => {
             const index = Math.floor(Math.random() * allJokes.length)
-            console.log(index)
             res.json({ joke: allJokes[index]})
         })
         .catch((err) => {
